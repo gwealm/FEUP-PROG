@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
 
-	float a, b, c, d, e, f;
+	float a, b, c, d, e, f;	// user input for the equation variables
 
 	cout << "For the equation of the type:\
 			\na * b + b * y = c\

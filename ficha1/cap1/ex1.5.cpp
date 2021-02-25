@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
 
-	int t1Hours, t1Minutes, t1Seconds, t2Hours, t2Minutes, t2Seconds;
+	int t1Hours, t1Minutes, t1Seconds, t2Hours, t2Minutes, t2Seconds; // input for both times (1 and 2)
 
 	cout << "Time1 (hours minutes seconds) ? ";
 	cin >> t1Hours >> t1Minutes >> t1Seconds;

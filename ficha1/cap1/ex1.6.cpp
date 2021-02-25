@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+
 using namespace std;
 
 
@@ -10,7 +11,6 @@ double distance(double x1, double y1, double x2, double y2) {
 	return sqrt(deltaX + deltaY);
 }
 	
-
 int main() {
 
 	double x1, y1, x2, y2, x3, y3;

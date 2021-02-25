@@ -4,16 +4,16 @@ using namespace std;
 
 
 float mass(float radius, float materialMass) {
-	float pi = atan(1) * 4;	//approximation to pi 
+	const float PI = atan(1) * 4;	// approximation to pi 
 
-	//formula of a sphere mass: M_sphere = 4/3 * (pi * M_material * r^3)
-	return 4 / 3 * materialMass * pi * pow(radius, 3);
+	// formula of a sphere mass: M_sphere = 4/3 * (pi * M_material * r^3)
+	return 4.0/3.0 * (materialMass * PI * pow(radius, 3));
 };
 
 
 int main() {
 
-	float radius, materialMass;
+	float radius, materialMass;	// input operands
 
 	cout << "Which is the radius of the sphere [m]? ";
 	cin >> radius;
