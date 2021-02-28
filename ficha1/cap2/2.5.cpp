@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
 
-    const unsigned RESULT_PRECISION = 3;
+    const unsigned RESULT_PRECISION = 3; // Result precision
 
     double a, b, c;  // User input for the coefficients of the equation
 
@@ -16,22 +16,20 @@ int main() {
 
     double insideSqrt = b * b - 4 * a * c;
     double root1, root2;                         
-    bool isComplex, areEqual;                   // Booleans to flag if the roots are or aren't equal and complex
 
-    root1 = (-b + sqrt(insideSqrt)) / 2 * a;    // First root
-    root2 = (-b - sqrt(insideSqrt)) / 2 * a;    // Second root
+    cout << "The equation has 2 ";
+    cout << fixed << setprecision(RESULT_PRECISION);    // Sets numeric precision to 3 decimal places
 
-    if (insideSqrt < 0)                          // Checks if what's inside of the root is negative (if yes the result will be a complex number)
-        isComplex = true;
-    if (root1 == root2)                         // Checks if the equation has 2 equal roots
-        areEqual = true;
+    if (insideSqrt < 0)                                 // 2 different complex roots
+         cout << "different complex roots: " 
+              << -b / (2 * a) << "+" << sqrt(-insideSqrt) / (2 * a) << "i" << " and " 
+              << -b / (2 * a) << "-" << sqrt(-insideSqrt) / (2 * a) << "i" << endl;
+    else if (insideSqrt == 0)                            // 2 equal real roots
+        cout << "equal real root: " << -b / (2 * a) << endl;
+    else                                                 // 2 different real roots
+        cout << "different real roots: " << (-b - sqrt(b * b - 4 * a * c)) / (2 * a) << "and"
+             << (-b + sqrt(b * b - 4 * a * c)) / (2 * a) << endl;
 
-    // By using ternary operator I changed the output message, according to the previously obtained results
-
-    cout << fixed << setprecision(RESULT_PRECISION);
-    cout << "The equation has 2 " << ((areEqual) ? "equal " : "different ")
-         << ((isComplex) ? "complex " : "reals ") << "roots: "
-         << root1 << " and " << root2 << endl;   
-
+    
     return 0;
 }
