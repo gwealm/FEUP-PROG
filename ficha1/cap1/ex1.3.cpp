@@ -2,12 +2,9 @@
 #include <cmath>
 using namespace std;
 
-
 float mass(float radius, float materialMass) {
-	const float PI = atan(1) * 4;	// approximation to pi 
-
 	// formula of a sphere mass: M_sphere = 4/3 * (pi * M_material * r^3)
-	return 4.0/3.0 * (materialMass * PI * pow(radius, 3));
+	return 4.0/3.0 * (materialMass * M_PI * pow(radius, 3));
 };
 
 

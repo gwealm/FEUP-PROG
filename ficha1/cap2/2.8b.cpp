@@ -7,12 +7,9 @@ using namespace std;
 
 int main() {
 
-    
-    const double PI = atan(1) * 4;
-    
     float initialValue, finalValue, step;
 
-    float rad;
+    double rad;
 
     cout << "Set the initial degree: ";
     cin  >> initialValue;
@@ -25,11 +22,8 @@ int main() {
 
     cout << fixed << setprecision(6);                   // Sets the fixed decimal places
 
-// 90 + 180 * x
-
-
     for (float i = 0; i  <= finalValue + step; i += step) {
-        rad = i * PI / 180;                             // Converts degrees to radians
+        rad = i * M_PI / 180;                             // Converts degrees to radians
         cout << i << "\t" << sin(rad) << "\t" << cos(rad) << "\t";
 
         if (i == 90 || i == 270)                        // Checks if the tangent has an infinit value between 0 and 360 degrees

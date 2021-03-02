@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 int main() {
 
     int inputNum1, inputNum2; // User input 
