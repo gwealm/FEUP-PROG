@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    int lastDen = 1;              
+    double lastDen = 1;              
     long double res = 1;                    // Adding 1 (the first member of the series manually)
     int x, reps;                            // User input
 
