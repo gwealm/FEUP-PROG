@@ -102,6 +102,7 @@ int calculateDay(int year, int month, int day) {
  * @return      - int
  */
 int calculateC(int month, bool isLeap) {
+    
     switch (month) {
         case (1):
             if (isLeap)
