@@ -24,7 +24,7 @@ int main() {
 }
 
 /**
- * @brief       - Returns a boolean value, indicating wheter the year is leap (true) or not (false) 
+ * @brief       - Returns a boolean value, indicating whether the year is leap (true) or not (false) 
  * 
  * @param       - int representing the year 
  */
