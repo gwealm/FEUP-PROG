@@ -14,7 +14,7 @@ int main() {
 
     bool isValid = readInt(num);
 
-    cout << "The value" (isValid ? " is " : " is not ") << "an integer." << endl;
+    cout << "The value" << (isValid ? " is " : " is not ") << "an integer." << endl;
 
     return 0;
 }

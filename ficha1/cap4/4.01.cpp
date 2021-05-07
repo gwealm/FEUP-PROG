@@ -1,76 +1,146 @@
 #include <iostream>
+#include <climits>
+#include <cstdlib>
 
 using namespace std;
 
-void readArray(int a[], size_t nElem);
+void readArray(int  a[], size_t nElem);
+void displayArray(int  a[], size_t nElem);
 int findValueInArray(const int a[], size_t nElem, int value, size_t pos1, size_t pos2);
 int findMultValueInArray(const int a[], size_t nElem, int value, size_t pos1, size_t pos2, size_t index[]);
 
+
 int main() {
+    size_t size;
 
-    int size, needle, lb, ub;
-    int arr[1000];
-    size_t matchIndex[1000];
-
-    cout << "What's the size of the array? ";
+    cout << "Insert the size of the array: ";
     cin >> size;
 
-    readArray(arr, size);
+    cin.clear();
+    cin.ignore(1000, '\n');
 
-    cout << "Insert the element you want to search: ";
-    cin >> needle;
+    int *numArray = (int *) malloc(size * sizeof(int));
 
-    cout << "Insert, respectively a lower and an upper bound: ";
-    cin >> lb >> ub;
+    readArray(numArray, size);
+    displayArray(numArray, size);
 
-    if (ub > size)
-        ub = size;
-    if (lb < 0)
-        lb = 0;
+    char wantSearch;
 
-    int firstFound = findValueInArray(arr, size, needle, lb, ub); 
+    cout << "Do you want to search an element ['y'/'n'] ? ";
+    cin >> wantSearch;
 
-    if (firstFound != -1) {
-        cout << "The item was first found in position " << firstFound << endl;
+    cin.clear();
+    cin.ignore(1000, '\n');
 
-        int numOfItems = findMultValueInArray(arr, size, needle, lb, ub, matchIndex);
-        for (int i = 0; i < numOfItems; i++)
-            cout << "All of the matching indexes: " << matchIndex[i] << "  ";
-        cout << endl;
+    if (tolower(wantSearch) == 'y') {
+        int searchEl, lowerIdx, upperIdx;
 
-    } else {
-        cout << "The item was not found" << endl;
-    }
+        cout << "Insert the element to search: ";
+        cin >> searchEl;
+        cout << "Insert the lower and upper search indexes: ";
+        cin >> lowerIdx >> upperIdx;
 
-    return 0;
-}
-
-
-void readArray(int a[], size_t nElem) {
-    for (int i = 0; i < nElem; i++) {
-        cin >> a[i];
         cin.clear();
-        cin.ignore(1000,'\n');
-    }
-}
+        cin.ignore(1000, '\n');
 
+        if (lowerIdx < 0)
+            lowerIdx = 0;
+        else if (upperIdx > size)
+            upperIdx = size;
 
-int findValueInArray(const int a[], size_t nElem, int value, size_t pos1=0, size_t pos2=1000) {
-    for (int i = pos1; i <= pos2; i++) {
-        if (a[i] == value)
-            return i;
-    }
-    return -1;
-}
+        int foundVal = findValueInArray(numArray, size, searchEl, lowerIdx, upperIdx);
 
+        if (foundVal == -1) {
+            cout << "Value was not found!" << endl;
+            free(numArray);
+        } else {
+            size_t *occurArray = (size_t *) malloc(size * sizeof(int));          // initializing array that will contain the indexes of the overlapping occurrences
+            int numOccur = findMultValueInArray(numArray, size, searchEl, lowerIdx, upperIdx, occurArray);
 
-int findMultValueInArray(const int a[], size_t nElem, int value, size_t pos1, size_t pos2, size_t index[]) {
-    int cont = 0;
-    for (int i = pos1; i <= pos2; i++) {
-        if (a[i] == value) {
-            index[cont] = i;
-            cont++;
+            cout << "Value was firstly found at index " << foundVal << endl;
+            cout << "Total number of occurrences: " << numOccur << endl;
+
+            for (int w = 0; w < size; w++) {
+                cout << occurArray[w] << " | ";
+            }
+            cout << endl;
+
+            // deallocate heap memory
+            free(occurArray);
+            free(numArray);
         }
     }
-    return cont;
+    return 0;
 }
+/**
+ * @brief Sets the array's elements
+ *
+ * @param a     - array
+ * @param nElem - number of elements of the array
+ */
+    void readArray(int a[], size_t nElem) {
+        for (int i = 0; i < nElem; i++) {
+            cout << "Insert the element number " << i << ": ";
+            cin >> a[i];
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
+    }
+
+
+/**
+ * @brief displays the array's elements
+ *
+ * @param a     - array
+ * @param nElem - number of elements of the array
+ */
+    void displayArray(int a[], size_t nElem) {
+        cout << "Array: ";
+        for (int i = 0; i < nElem; i++) {
+            cout << a[i] << " | ";
+        }
+        cout << endl;
+    }
+
+
+/**
+ * @brief finds the first occurrence of `value` in `a` between the indexes `pos1` and `pos2`
+ *
+ * @param a array of ints
+ * @param nElem size of the array
+ * @param value value to find
+ * @param pos1 lower search index
+ * @param pos2 upper search index
+ * @return int the index of the first occurrence of `value` or -1 if there's no one
+ */
+    int findValueInArray(const int a[], size_t nElem, int value, size_t pos1 = 0, size_t pos2 = ULLONG_MAX) {
+        for (int i = pos1; i < pos2; i++) {
+            if (a[i] == value)
+                return i;
+        }
+        return -1;
+    }
+
+
+/**
+ * @brief returns the number of overlaps of `value` in the array `a`
+ *
+ * @param a array of ints
+ * @param nElem size of the array
+ * @param value value to find
+ * @param pos1 lower search index
+ * @param pos2 upper search index
+ * @param index array which will contain the elements of `nElem` that overlap with `value`
+ * @return int the number of occurrences of `value`
+ */
+    int findMultValueInArray(const int a[], size_t nElem, int value, size_t pos1, size_t pos2, size_t index[]) {
+        int cont = 0;
+        for (int i = 0; i < nElem; i++) {
+            index[i] = 0;
+            if (a[i] == value) {
+                index[cont] = i;
+                cont++;
+            }
+        }
+        return cont;
+    }
